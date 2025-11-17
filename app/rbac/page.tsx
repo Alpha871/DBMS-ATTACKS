@@ -162,8 +162,7 @@ export default function RbacSimulatorPage() {
   }
 
   function encryptText(s: string) {
-    if (!s)
-      return "🔒 " + btoa(unescape(encodeURIComponent(s))).slice(0, 10) + "…";
+    return "🔒 " + btoa(unescape(encodeURIComponent(s))).slice(0, 10) + "…";
   }
   function encryptRecords(rs: typeof INITIAL_RECORDS) {
     return rs.map((r) => ({
