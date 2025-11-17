@@ -22,6 +22,7 @@ import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { randomValue } from "@/lib/utils";
+import { INITIAL_LOG, INITIAL_RECORDS } from "@/lib/constant";
 
 function Toggle({
   checked,
@@ -46,64 +47,15 @@ function Toggle({
   );
 }
 
-const INITIAL_RECORDS = [
-  {
-    id: 101,
-    name: "Alice Johnson",
-    email: "alice.j@example.com",
-    salary: "$95,000",
-    notes: "Q3 Performance Review Pending",
-  },
-  {
-    id: 102,
-    name: "Bob Williams",
-    email: "bob.w@example.com",
-    salary: "$82,000",
-    notes: "Onboarding complete",
-  },
-  {
-    id: 103,
-    name: "Charlie Brown",
-    email: "charlie.b@example.com",
-    salary: "$110,000",
-    notes: "Project Lead for 'Phoenix'",
-  },
-];
-
-const INITIAL_LOG = [
-  {
-    ts: "2023-10-27 10:32:05",
-    message: "Employee attempted to Delete record #102.",
-    status: "Denied",
-  },
-  {
-    ts: "2023-10-27 10:31:59",
-    message: "Employee attempted to Edit record #101.",
-    status: "Allowed",
-  },
-  {
-    ts: "2023-10-27 10:31:45",
-    message: "Admin attempted to Export all data.",
-    status: "Allowed",
-  },
-  {
-    ts: "2023-10-27 10:30:12",
-    message: "User attempted to Edit record #103.",
-    status: "Denied",
-  },
-  {
-    ts: "2023-10-27 10:29:50",
-    message: "Employee attempted to View record #103.",
-    status: "Allowed",
-  },
-];
-
 export default function RbacSimulatorPage() {
-  // Theme (optional; remove if you use next-themes globally)
   const [dark, setDark] = useState(true);
   useEffect(() => {
     const root = document.documentElement;
-    dark ? root.classList.add("dark") : root.classList.remove("dark");
+    if (dark) {
+      root.classList.add("dark");
+    } else {
+      root.classList.remove("dark");
+    }
   }, [dark]);
 
   // RBAC & data state
@@ -119,6 +71,7 @@ export default function RbacSimulatorPage() {
     id?: number;
     reason?: string;
   }>({ open: false });
+
   const [edit, setEdit] = useState<{
     open: boolean;
     data?: {

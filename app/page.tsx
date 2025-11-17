@@ -5,27 +5,7 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import QueryPanel from "@/components/custom-components/query-panel";
 import OutputPanel from "@/components/custom-components/output-panel";
-
-const DEMO_ROWS = [
-  {
-    id: 1,
-    username: "admin",
-    email: "admin@vulndb.dev",
-    passwordHash: "5f4dcc3b5aa765d61d8327deb882cf99",
-  },
-  {
-    id: 2,
-    username: "alice",
-    email: "alice@example.com",
-    passwordHash: "e10adc3949ba59abbe56e057f20f883e",
-  },
-  {
-    id: 3,
-    username: "bob",
-    email: "bob@example.com",
-    passwordHash: "900150983cd24fb0d6963f7d28e17f72",
-  },
-];
+import { DEMO_ROWS } from "@/lib/constant";
 
 function ts() {
   return new Date().toLocaleTimeString();
@@ -71,7 +51,6 @@ export default function Home() {
 
   // Protected execution handler
   const handleProtected = ({ input }: { input: string }) => {
-    // Parameterized simulation: exact-match only (often returns none)
     const filtered = DEMO_ROWS.filter(
       (r) => r.email === input || r.username === input
     );
