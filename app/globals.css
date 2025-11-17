@@ -1,26 +1,205 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* Dark variant helper for Tailwind v4 */
+@custom-variant dark (&:is(.dark *));
 
+/* Map Tailwind/shadcn tokens to CSS variables */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-destructive: var(--destructive);
+
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* =========================
+   LIGHT THEME (VulnDB)
+   ========================= */
+:root {
+  /* radii — demo uses ~0.5rem corners */
+  --radius: 0.5rem;
+
+  /* Core */
+  --background: #f8f6f6;
+  --foreground: #0f0f0f;
+
+  /* Surfaces */
+  --card: #ffffff;
+  --card-foreground: #0f0f0f;
+
+  --popover: #ffffff;
+  --popover-foreground: #0f0f0f;
+
+  /* Brand */
+  --primary: #ec1313; /* VulnDB red */
+  --primary-foreground: #ffffff;
+
+  /* Neutrals */
+  --secondary: #f1f1f1;
+  --secondary-foreground: #1a1a1a;
+
+  --muted: #f1f1f1;
+  --muted-foreground: #6b6b6b;
+
+  --accent: #f1f1f1;
+  --accent-foreground: #1a1a1a;
+
+  /* UI */
+  --destructive: #b3261e;
+  --border: #e6e6e6;
+  --input: #e6e6e6;
+  --ring: #c7c7c7;
+
+  /* Charts */
+  --chart-1: #8f5fdb;
+  --chart-2: #5db7ff;
+  --chart-3: #4f6cd3;
+  --chart-4: #a7df5a;
+  --chart-5: #e4c35b;
+
+  /* Sidebar (solid base; translucency handled by /xx utilities in components) */
+  --sidebar: #221010;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #ec1313;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #392828; /* deep tile/chip bg */
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #e6e6e6;
+  --sidebar-ring: #c7c7c7;
+}
+
+/* =========================
+   DARK THEME (VulnDB)
+   ========================= */
+.dark {
+  /* Core */
+  --background: #181111;
+  --foreground: #ffffff;
+
+  /* Surfaces */
+  --card: #221010;
+  --card-foreground: #ffffff;
+
+  --popover: #221010;
+  --popover-foreground: #ffffff;
+
+  /* Brand */
+  --primary: #ec1313;
+  --primary-foreground: #ffffff;
+
+  /* Neutrals */
+  --secondary: #2a1c1c;
+  --secondary-foreground: #ffffff;
+
+  --muted: #2a1c1c;
+  --muted-foreground: #b99d9d;
+
+  --accent: #392828;
+  --accent-foreground: #ffffff;
+
+  /* UI */
+  --destructive: #ff4d4f;
+  --border: #ffffff1a; /* ~10% white */
+  --input: #ffffff26; /* ~15% white */
+  --ring: #b99d9d;
+
+  /* Charts */
+  --chart-1: #7aa2ff;
+  --chart-2: #4fd1c5;
+  --chart-3: #f6ad55;
+  --chart-4: #63b3ed;
+  --chart-5: #f687b3;
+
+  /* Sidebar */
+  --sidebar: #181111;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #ec1313;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #392828;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #ffffff1a;
+  --sidebar-ring: #b99d9d;
+}
+
+/* =========================
+   BASE LAYER
+   ========================= */
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* =========================
+   OPTIONAL HELPERS
+   ========================= */
+
+/* Material Symbols helper (include the font link in <head>) */
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
+}
+
+/* Utility shorthands that mirror the demo look */
+.bg-card-translucent {
+  background-color: color-mix(in oklab, var(--card) 40%, transparent);
+}
+.bg-sidebar-translucent {
+  background-color: color-mix(in oklab, var(--sidebar) 50%, transparent);
+}
+.bg-accent-translucent {
+  background-color: color-mix(in oklab, var(--accent) 60%, transparent);
+}
+
+/* Mono font alias to match demo code blocks without changing components */
+.font-mono {
+  font-family: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo,
+    Monaco, "Fira Code", "Courier New", monospace;
 }
