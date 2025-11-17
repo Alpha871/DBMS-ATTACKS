@@ -61,7 +61,6 @@ attacks/
 ### Installation
 
 ```bash
-cd /Users/alphabah/Desktop/attacks
 npm install
 ```
 
