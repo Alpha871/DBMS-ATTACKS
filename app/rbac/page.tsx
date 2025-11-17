@@ -21,19 +21,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
+import { randomValue } from "@/lib/utils";
 
-/**
- * RBAC Threat Simulator — Full Page (works with global layout: <Sidebar /> + {children})
- * Features:
- *  - RBAC (role: admin/employee/user) with permission checks
- *  - Custom Toggle (51×31) for RBAC on/off
- *  - Ransomware: encrypts email/salary/notes (read-only until restored)
- *  - DoS: injects latency & failure rate into all actions
- *  - Shadcn: Button, Select, Dialog, Input, Alert, Badge
- * Tailwind tokens expected (as you used): primary, background-light, background-dark, etc.
- */
-
-// Custom Toggle matching your original HTML (51×31 pill, white knob)
 function Toggle({
   checked,
   onCheckedChange,
@@ -57,7 +46,6 @@ function Toggle({
   );
 }
 
-// --- Demo data
 const INITIAL_RECORDS = [
   {
     id: 101,
@@ -159,11 +147,10 @@ export default function RbacSimulatorPage() {
     [rbacEnabled]
   );
 
-  // --- Ransomware & DoS state ---
   const [ransomwareActive, setRansomwareActive] = useState(false);
   const [dosActive, setDosActive] = useState(false);
-  const [dosLatencyMs, setDosLatencyMs] = useState<number>(600); // simulated delay
-  const [dosFailurePct, setDosFailurePct] = useState<number>(40); // 0–100
+  const [dosLatencyMs, setDosLatencyMs] = useState<number>(600);
+  const [dosFailurePct, setDosFailurePct] = useState<number>(40);
   const [recordsBackup, setRecordsBackup] = useState<
     typeof INITIAL_RECORDS | null
   >(null);
@@ -175,9 +162,8 @@ export default function RbacSimulatorPage() {
   }
 
   function encryptText(s: string) {
-    if (!s) return "🔒 ENCRYPTED";
-    // quick length-capped encoding for “encrypted” look
-    return "🔒 " + btoa(unescape(encodeURIComponent(s))).slice(0, 10) + "…";
+    if (!s)
+      return "🔒 " + btoa(unescape(encodeURIComponent(s))).slice(0, 10) + "…";
   }
   function encryptRecords(rs: typeof INITIAL_RECORDS) {
     return rs.map((r) => ({
@@ -208,14 +194,14 @@ export default function RbacSimulatorPage() {
   async function performWithDoS<T>(fn: () => T) {
     if (!dosActive) return fn();
     await new Promise((res) => setTimeout(res, Math.max(0, dosLatencyMs)));
-    const roll = Math.random() * 100;
+
+    const roll = randomValue() * 100;
     if (roll < dosFailurePct) {
       throw new Error("Service Unavailable (simulated DoS)");
     }
     return fn();
   }
 
-  // Actions with RBAC + Ransomware + DoS
   async function tryAction(
     action: "view" | "edit" | "delete" | "export",
     id: number
@@ -250,7 +236,7 @@ export default function RbacSimulatorPage() {
     }
 
     try {
-      await performWithDoS(() => true); // Apply DoS effects
+      await performWithDoS(() => true);
 
       log("Allowed", `${role} performed ${action} on record #${id}.`);
       if (action === "edit") {
@@ -660,7 +646,6 @@ export default function RbacSimulatorPage() {
               </div>
             </section>
 
-            {/* ---- Dialogs ---- */}
             <Dialog
               open={violation.open}
               onOpenChange={(o) => setViolation((v) => ({ ...v, open: o }))}
@@ -817,7 +802,6 @@ export default function RbacSimulatorPage() {
                 </DialogFooter>
               </DialogContent>
             </Dialog>
-            {/* ---- /Dialogs ---- */}
           </div>
         </div>
       </div>
