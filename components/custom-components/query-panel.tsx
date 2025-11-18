@@ -16,10 +16,9 @@ const QueryPanel: React.FC<QueryPanelProps> = ({
   onProtected,
 }) => {
   const [userInput, setUserInput] = useState<string>("' OR '1'='1");
-  // Only for the outcome of *last execution*, not for mirroring props:
+
   const [message, setMessage] = useState<string | null>(null);
 
-  // Derive the banner text directly from the prop — no effect/setState needed.
   const modeHint = useMemo(
     () =>
       protectedMode

@@ -12,12 +12,12 @@ VulnDB is a Next.js + shadcn/ui web application that illustrates three critical 
 
 ### Key Features
 
-✅ **Interactive Before/After Demos** — Toggle between vulnerable and protected modes
-✅ **Real-time Query Execution** — See SQL injection attacks blocked in action
-✅ **Audit Trail Logging** — Track security events and anomalies
-✅ **RBAC/IAM Simulation** — Demonstrate least-privilege access controls
-✅ **Encryption & Backup Protection** — Show defensive measures against ransomware
-✅ **AI-assisted Anomaly Detection** — Correlate security events with confidence scores
+- ✅ **Interactive Before/After Demos** — Toggle between vulnerable and protected modes
+- ✅ **Real-time Query Execution** — See SQL injection attacks blocked in action
+- ✅ **Audit Trail Logging** — Track security events and anomalies
+- ✅ **RBAC/IAM Simulation** — Demonstrate least-privilege access controls
+- ✅ **Encryption & Backup Protection** — Show defensive measures against ransomware
+- ✅ **AI-assisted Anomaly Detection** — Correlate security events with confidence scores
 
 ---
 

@@ -103,12 +103,12 @@ const Sidebar: React.FC = () => {
             <NavItem
               icon={<Settings className="text-white" />}
               label="Settings"
-              path="/"
+              path="#"
             />
             <NavItem
               icon={<LogOut className="text-white" />}
               label="Logout"
-              path="/"
+              path="#"
             />
           </div>
         </div>
